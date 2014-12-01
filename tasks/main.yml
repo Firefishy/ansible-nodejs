@@ -1,8 +1,13 @@
 ---
 # Main tasks file for node.js role
 
-- name: Carry out {{ ansible_os_family }} specific tasks
-  include: "{{ ansible_os_family }}.yml"
+- name: Carry out RedHat specific tasks
+  include: RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- name: Carry out Debian specific tasks
+  include: Debian.yml
+  when: ansible_os_family == "Debian"
 
 - name: Install global packages
   npm: global=yes name={{ item }} state=present
